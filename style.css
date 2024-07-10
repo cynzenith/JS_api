@@ -1,0 +1,40 @@
+/* title */
+.head-line {
+    margin-top: 1em;
+    display: flex;          /* 로고 가운데 정렬 */
+    justify-content: center; 
+}
+.head-line svg {
+    width:430px;
+}
+
+/* menu */
+.news {
+    border-bottom: 2px solid black;
+}
+
+.menus {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;                 /* 창 크기에 따라 범위 안에 있도록 감싸준다. 즉, 창크기가 작아지면 한줄 메뉴가 2~3줄로 줄어들면서 감싼다 */
+    border-top:1px solid #ebebeb;
+    border-bottom: 4px double black;
+}
+.menus button {
+    border: none;
+    background: none;  /* 버튼의 배경을 없애 */
+    margin: 5px;
+}
+.menus button:hover{
+    background-color: beige;
+}
+
+/* news */
+.news-img-size {
+    width: 100%;  
+    height: auto;  
+    max-height: 250px; 
+    object-fit: cover; 
+}
+

@@ -7,8 +7,33 @@ const getLatestNews = async () => {
         console.log(url);
         const response = await fetch(url)
         const data = await response.json();
-        news = data.articles
-        console.log(news);
+        newsList = data.articles
+        render()
+        console.log(newsList);
+}
+
+const render=()=>{
+    const maxLength = 200;
+    const newsHTML = newsList.map(news=>
+        `<div class="row news">
+            <div class="col-lg-4">  
+                <img class="news-img-size"
+    src="${news.urlToImage || "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg"}"
+    onerror="this.onerror=null;this.src='https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg';" />
+            </div>        
+            <div class="col-lg-8">        
+                <h2>${news.title}</h2>
+                <p>${
+                    news.description == null || news.description == ""
+                        ? "내용없음"
+                        : news.description.length > 200
+                        ? news.description.substring(0, 200) + "..."
+                        : news.description
+                }</p>
+                <div>${news.source.name || "no source"} * ${moment().startOf('day').fromNow()}</div>
+            </div>
+        </div>`).join('');
+    document.getElementById('news-board').innerHTML = newsHTML
 }
 
 getLatestNews()
