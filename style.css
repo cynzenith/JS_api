@@ -33,8 +33,6 @@
 /* news */
 .news-img-size {
     width: 100%;  
-    height: auto;  
     max-height: 250px; 
-    object-fit: cover; 
 }
 
