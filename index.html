@@ -20,29 +20,22 @@
         <div id="mySidenav" class="sidenav">
           <!-- 닫기 버튼 -->
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <a href="#">Sport</a>
-          <a href="#">Tech</a>
-          <a href="#">World</a>
-          <a href="#">Finance</a>
-          <a href="#">Politics</a>
           <a href="#">Business</a>
-          <a href="#">Economics</a>
           <a href="#">Entertainment</a>
-          <a href="#">Beauty</a>
-          <a href="#">Travel</a>
-          <a href="#">Music</a>
-          <a href="#">Food</a>
+          <a href="#">General</a>
+          <a href="#">Health</a>
           <a href="#">Science</a>
-          <a href="#">Gaming</a>
-          <a href="#">Energy</a>          
+          <a href="#">Sports</a>
+          <a href="#">Technology</a>
+          <a href="#">Energy</a>
         </div>
       </div>
       <div>
         <!-- 검색 버튼 -->        
         <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
         <span id="input-area" style="display: none;">
-            <input type="text" id="search-input" placeholder="search" />
-            <button class="search-button" onclick="searchNews()">Go</button>
+            <input type="text" id="search-input" placeholder="search" onkeydown="handleKeyDown(event)" />
+            <button class="search-button" onclick="getNewsByKeyword()">Go</button>
         </span>
       </div>    
     </section>
@@ -59,21 +52,13 @@
       </div>
       <div class="menus">            
         <!-- menu -->
-        <button>Sport</button>
-        <button>Tech</button>
-        <button>World</button>
-        <button>Finance</button>
-        <button>Politics</button>
         <button>Business</button>
-        <button>Economics</button>
         <button>Entertainment</button>
-        <button>Beauty</button>
-        <button>Travel</button>
-        <button>Music</button>
-        <button>Food</button>
+        <button>General</button>
+        <button>Health</button>
         <button>Science</button>
-        <button>Gaming</button>
-        <button>Energy</button>
+        <button>Sports</button>
+        <button>Technology</button>
       </div>
     </section>
     <section id="news-board">            \
