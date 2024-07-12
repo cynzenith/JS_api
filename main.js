@@ -25,6 +25,10 @@ const side_menus = document.querySelectorAll(".sidenav a");
 side_menus.forEach(menu => menu.addEventListener("click", (event) => getNewsByCategory(event)));
 
 const getNewsByCategory = async (event) => {
+    // 이벤트가 발생한 요소가 'closebtn' 클래스를 가진 경우를 무시합니다.
+    if (event.target.classList.contains('closebtn')) {
+        return;
+    }
     // 호출 테스트
     // console.log(getNewsByCategory)
 
