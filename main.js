@@ -8,16 +8,24 @@ const side_menus = document.querySelectorAll(".sidenav a");
 side_menus.forEach(menu => menu.addEventListener("click", (event) => getNewsByCategory(event)));
 
 let url = new URL(`https://inspiring-custard-4a08a3.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
+let totalResults = 0
+let page = 1
+const pageSize = 10
+const groupSize = 5
 
 const getNews = async()=>{
     try{
+        url.searchParams.set('page', page)  // url = &page=${page}
+        url.searchParams.set('pageSize', pageSize)  // url = &pageSize=${pageSize}
         const response = await fetch(url);
         const data = await response.json();
         if(response.status === 200){
             if(data.articles.length === 0){
                 throw new Error("No result for this search");}
             newsList = data.articles;
+            totalResults = data.totalResults
             render();
+            paginationRender()
             console.log(newsList);
         }
         else{
@@ -106,3 +114,49 @@ const errorRender = (errorMessage) => {
     </div>`
     document.getElementById("news-board").innerHTML = errorHTML
 }
+
+const paginationRender=() => {
+    const totalPages = Math.ceil(totalResults / pageSize)
+    const pageGroup = Math.ceil(page / groupSize)
+    let lastPage = pageGroup * groupSize    // lastPage -> firstPage
+    // 마지막 페이지그룹이 그룹사이즈보다 작다? lastPage = totalPages
+    if(lastPage > totalPages){
+        lastPage = totalPages
+    }
+    let firstPage = lastPage - (groupSize - 1) <=0? 1: lastPage - (groupSize - 1);   
+
+    let visiblePages = groupSize;
+    if (totalPages <= groupSize || (lastPage - firstPage + 1) < groupSize) {
+        visiblePages = Math.min(totalPages, groupSize);
+        if (lastPage - firstPage + 1 < visiblePages) {
+            lastPage = firstPage + visiblePages - 1;
+        }
+    }
+
+    let paginationHTML = '';
+    paginationHTML += `${page === 1 ? '' : `<li class="page-item" onclick="moveToPage(1)"><a class="page-link">&laquo;</a></li>`}`;
+    paginationHTML += `${page === 1 ? '' : `<li class="page-item" onclick="moveToPage(${page - 1})"><a class="page-link">&lt;</a></li>`}`;
+    for (let i = firstPage; i <= lastPage; i++) {
+        paginationHTML += `<li class="page-item ${i === page ? 'active' : ''}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+    }
+    paginationHTML += `${page === totalPages ? '' : `<li class="page-item" onclick="moveToPage(${page + 1})"><a class="page-link">&gt;</a></li>`}`;
+    paginationHTML += `${page === totalPages ? '' : `<li class="page-item" onclick="moveToPage(${totalPages})"><a class="page-link">&raquo;</a></li>`}`;
+    document.querySelector('.pagination').innerHTML = paginationHTML;
+}
+
+const moveToPage=(pageNum) => {
+    // console.log('moveToPage'+pageNum)
+    page=pageNum
+    getNews()
+}
+
+// <nav aria-label="Page navigation example">
+//   <ul class="pagination">
+//     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+//     <li class="page-item"><a class="page-link" href="#">1</a></li>
+//     <li class="page-item"><a class="page-link" href="#">2</a></li>
+//     <li class="page-item"><a class="page-link" href="#">3</a></li>
+//     <li class="page-item"><a class="page-link" href="#">Next</a></li>
+//   </ul>
+// </nav>
+

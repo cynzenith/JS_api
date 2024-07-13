@@ -93,6 +93,13 @@ margin-left: 50px; /* 왼쪽 마진 50px */
     max-height: 250px;  
 }
 
+.pagination {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px; 
+}
+
+
 
 /* 데스크탑 버전: .menus 표시, #mySidenav 숨기기 */
 @media (min-width: 991px) {
