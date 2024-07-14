@@ -51,6 +51,7 @@ const getNewsByCategory = async (event) => {
     const category = event.target.textContent.toLowerCase();
     console.log(category);
     url = new URL(`https://inspiring-custard-4a08a3.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    page = 1
     await getNews()
 }
 
@@ -58,6 +59,7 @@ const getNewsByKeyword = async () => {
     const searchInput = document.getElementById("search-input");
     const keyword = searchInput.value;
     url = new URL(`https://inspiring-custard-4a08a3.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`);
+    page = 1
     await getNews()
     searchInput.value = "";
 }
